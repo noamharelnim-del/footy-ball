@@ -88,6 +88,10 @@
   .link.featured small{color:rgba(11,42,23,.75)}
   .link.featured .ico{background:rgba(11,42,23,.15)}
 
+  .sec-title{display:flex;align-items:center;gap:12px;margin:34px 0 14px;
+    font-family:Anton,Impact,sans-serif;font-weight:400;font-size:20px;letter-spacing:1px;color:var(--accent)}
+  .sec-title::before,.sec-title::after{content:"";flex:1;height:1px;background:var(--border)}
+  .link.sponsor{border-color:rgba(200,255,46,.45)}
   footer{padding:36px 0 48px;color:var(--muted);font-size:13px}
   footer b{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:1px;color:#fff}
   .spacer{height:1px}
@@ -102,6 +106,9 @@
 
   <nav class="socials" id="socials"></nav>
   <section class="links" id="links"></section>
+
+  <h2 class="sec-title">ספונסרים</h2>
+  <section class="links" id="sponsors"></section>
 
   <footer><b>FOOTY BALL</b> © <span id="y"></span> · כל הזכויות שמורות</footer>
   <div class="spacer"></div>
@@ -121,6 +128,11 @@ const LINKS = [
 ];
 
 /* Social icons row – remove any line you don't need */
+/* Sponsors – shown under the main links */
+const SPONSORS = [
+  { icon:"shirt", title:"KOOZA", sub:"לחולצות כדורגל פרימיום", url:"https://koozasport.com/" },
+];
+
 const SOCIALS = [
   { name:"instagram", url:"https://www.instagram.com/footy.ball_il/" },
   { name:"tiktok",    url:"https://www.tiktok.com/@2clubs_game" },
@@ -129,6 +141,7 @@ const SOCIALS = [
 /* ============================================= */
 
 const ICONS = {
+  shirt:'<svg viewBox="0 0 24 24"><path d="M8.5 2.5 3 5.2 1.4 10l3.8 1.4.8-1.9V21.5h12V9.5l.8 1.9L22.6 10 21 5.2l-5.5-2.7c-.5 1.6-1.9 2.6-3.5 2.6s-3-1-3.5-2.6z"/></svg>',
   chat:'<svg viewBox="0 0 24 24"><path d="M12 2C6.4 2 2 6.1 2 11.3c0 2.9 1.4 5.5 3.7 7.2V22l3.4-1.9c.9.3 1.9.4 2.9.4 5.6 0 10-4.1 10-9.2S17.6 2 12 2zm1 12.4-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>',
   star:'<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 21l1.6-7L2 9.2l7.1-.6z"/></svg>',
   link:'<svg viewBox="0 0 24 24"><path d="M10.6 13.4a1 1 0 0 1 0-1.4l3.5-3.5a1 1 0 1 1 1.4 1.4L12 13.4a1 1 0 0 1-1.4 0zM7.8 20.5a4.3 4.3 0 0 1-3-7.3l2.8-2.8a1 1 0 1 1 1.4 1.4l-2.8 2.8a2.3 2.3 0 0 0 3.2 3.2l2.8-2.8a1 1 0 1 1 1.4 1.4l-2.8 2.8a4.3 4.3 0 0 1-3 1.3zm8.6-6.9a1 1 0 0 1-.7-1.7l2.8-2.8a2.3 2.3 0 0 0-3.2-3.2l-2.8 2.8a1 1 0 1 1-1.4-1.4l2.8-2.8a4.3 4.3 0 0 1 6 6l-2.8 2.8a1 1 0 0 1-.7.3z"/></svg>',
@@ -145,12 +158,14 @@ if (LOGO){ const a=document.getElementById('avatar'); a.innerHTML='<img src="'+L
 document.getElementById('socials').innerHTML = SOCIALS.map(s =>
   `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}">${ICONS[s.name]||''}</a>`).join('');
 
-document.getElementById('links').innerHTML = LINKS.map(l =>
-  `<a class="link${l.featured?' featured':''}" href="${l.url}" target="_blank" rel="noopener">
+const renderLinks = (list, extra='') => list.map(l =>
+  `<a class="link${l.featured?' featured':''}${extra}" href="${l.url}" target="_blank" rel="noopener">
      <span class="ico">${ICONS[l.icon]||ICONS.link}</span>
      <span class="txt">${l.title}${l.sub?`<small>${l.sub}</small>`:''}</span>
      <span class="arrow">‹</span>
    </a>`).join('');
+document.getElementById('links').innerHTML = renderLinks(LINKS);
+document.getElementById('sponsors').innerHTML = renderLinks(SPONSORS, ' sponsor');
 
 document.getElementById('y').textContent = new Date().getFullYear();
 </script>
