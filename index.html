@@ -89,8 +89,10 @@
   .link.featured .ico{background:rgba(11,42,23,.15)}
 
   .sec-title{display:flex;align-items:center;gap:12px;margin:34px 0 14px;
-    font-family:Anton,Impact,sans-serif;font-weight:400;font-size:20px;letter-spacing:1px;color:var(--accent)}
+    font-family:Rubik,system-ui,sans-serif;font-weight:800;font-size:19px;color:var(--accent)}
   .sec-title::before,.sec-title::after{content:"";flex:1;height:1px;background:var(--border)}
+  .link .ico.logo{padding:0;overflow:hidden;background:none}
+  .link .ico.logo img{width:100%;height:100%;display:block}
   .link.sponsor{border-color:rgba(200,255,46,.45)}
   footer{padding:36px 0 48px;color:var(--muted);font-size:13px}
   footer b{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:1px;color:#fff}
@@ -130,7 +132,7 @@ const LINKS = [
 /* Social icons row – remove any line you don't need */
 /* Sponsors – shown under the main links */
 const SPONSORS = [
-  { icon:"shirt", title:"KOOZA", sub:"לחולצות כדורגל פרימיום", url:"https://koozasport.com/" },
+  { logo:"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4KICA8cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgcng9IjIyIiBmaWxsPSIjMEIxMDBFIi8+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTgsMTQpIHNjYWxlKDAuNzIpIj4KICAgIDxnIHRyYW5zZm9ybT0ic2tld1goLTkpIj4KICAgICAgPHBhdGggc3Ryb2tlPSIjZmZmIiBkPSJNMTEyIDIwIEw1NCA3NCBMMTEyIDEyOCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyNCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjUiLz4KICAgICAgPHBhdGggc3Ryb2tlPSIjZmZmIiBkPSJNMjggMTggTDI4IDEzMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyNCIvPgogICAgPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODQuMyw3NCkiPgogICAgICA8Y2lyY2xlIGZpbGw9IiNDOEZGMkUiIHI9IjE1Ii8+CiAgICAgIDxnIHN0cm9rZT0iIzBCMTAwRSIgc3Ryb2tlLXdpZHRoPSIyLjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+CiAgICAgICAgPHBhdGggZD0iTS0xNC41IC0zLjcgQy00LjYgMi4zIDQuNiAyLjMgMTQuNSAtMy43Ii8+CiAgICAgICAgPHBhdGggZD0iTS01LjMgLTE0IEMxLjIgLTQuNiAxLjIgNC42IC01LjMgMTQiLz4KICAgICAgPC9nPgogICAgPC9nPgogIDwvZz4KPC9zdmc+Cg==", title:"KOOZA", sub:"לחולצות כדורגל פרימיום", url:"https://koozasport.com/" },
 ];
 
 const SOCIALS = [
@@ -160,7 +162,7 @@ document.getElementById('socials').innerHTML = SOCIALS.map(s =>
 
 const renderLinks = (list, extra='') => list.map(l =>
   `<a class="link${l.featured?' featured':''}${extra}" href="${l.url}" target="_blank" rel="noopener">
-     <span class="ico">${ICONS[l.icon]||ICONS.link}</span>
+     <span class="ico${l.logo?' logo':''}">${l.logo?`<img src="${l.logo}" alt="">`:(ICONS[l.icon]||ICONS.link)}</span>
      <span class="txt">${l.title}${l.sub?`<small>${l.sub}</small>`:''}</span>
      <span class="arrow">‹</span>
    </a>`).join('');
